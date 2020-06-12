@@ -1,0 +1,37 @@
+{
+  "name": "neotech-homework",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "build": "npx webpack",
+    "watch": "npx webpack --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aivislisovskis/neotechTask.git"
+  },
+  "author": "Aivis Lisovskis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aivislisovskis/neotechTask/issues"
+  },
+  "homepage": "https://github.com/aivislisovskis/neotechTask#readme",
+  "devDependencies": {
+    "autoprefixer": "^9.8.0",
+    "css-loader": "^3.5.3",
+    "friendly-errors-webpack-plugin": "^1.7.0",
+    "mini-css-extract-plugin": "^0.8.2",
+    "npm": "^6.14.5",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "postcss-loader": "^3.0.0",
+    "postcss-modules-values": "^3.0.0",
+    "source-map-loader": "^1.0.0",
+    "ts-loader": "^7.0.5",
+    "typescript": "^3.9.5",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.11"
+  }
+}
