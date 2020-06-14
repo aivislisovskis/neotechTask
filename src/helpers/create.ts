@@ -1,4 +1,11 @@
-import { Elements, ElementBlueprint, ElementOptions } from "./create.types";
+import {
+    Elements,
+    ElementBlueprint,
+    ElementOptions,
+    isElementBlueprint,
+    isElementBlueprintArray,
+    ElementProps,
+} from './create.types';
 
 export const create = (elementTag: Elements, options?: ElementOptions ): HTMLElement => {
     const newElement: HTMLElement = document.createElement(elementTag);
@@ -35,15 +42,25 @@ export const create = (elementTag: Elements, options?: ElementOptions ): HTMLEle
                 })
             }
         }
+
+        if (options.props) {
+            for (let a in options.props) {
+                if (options.props.hasOwnProperty(a)) {
+                    // @ts-ignorenewElement
+                    newElement[a] = options.props[a];
+                }
+            }
+        }
+
+        if (options.actions) {
+            for (let a in options.actions) {
+                if (options.actions.hasOwnProperty(a)) {
+                    // @ts-ignorenewElement
+                    newElement.addEventListener(a, options.actions[a]);
+                }
+            }
+        }
     }
 
     return newElement;
 };
-
-function isElementBlueprint(content: any): content is ElementBlueprint {
-    return (content as ElementBlueprint).elementTag !== undefined;
-}
-
-function isElementBlueprintArray(content: any): content is Array<(ElementBlueprint | HTMLElement)> {
-    return Array.isArray(content) && content.length > 0 && ((content[0] as ElementBlueprint).elementTag !== undefined || (content[0] instanceof HTMLElement));
-}

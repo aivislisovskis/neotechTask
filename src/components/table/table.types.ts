@@ -1,13 +1,23 @@
 export type TableData = RowData[];
 export interface TableOptions {
     data?: TableData,
-    headers: Array<string>,
+    headers: string[],
 }
 
-export type RowData = string[];
+export interface RowData {
+    id: string | number | null,
+    data: string[]
+};
 
 export interface RowOptions {
     data: RowData,
-    id: number | null,
     header?: boolean,
+}
+
+export function isTableData(data: any): data is TableData {
+    return Array.isArray(data) && data.length > 0 && isRowData(data[0]);
+}
+
+export function isRowData(data: any): data is RowData {
+    return Array.isArray(data) && data.length > 0 && (typeof(data[0]) === 'string');
 }

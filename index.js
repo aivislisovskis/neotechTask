@@ -10,6 +10,9 @@ const requestHandler = (request, response) => {
     case '/js/main.js':
       returnFile = './assets/main.js';
       break;
+    case '/js/main.js.map':
+      returnFile = './assets/main.js.map';
+      break;
     case '/css/main.css':
       returnFile = './assets/main.css';
       break;
