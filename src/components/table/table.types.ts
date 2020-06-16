@@ -1,7 +1,11 @@
+import { Row } from './Row';
+
 export type TableData = RowData[];
 export interface TableOptions {
     data?: TableData,
-    headers: string[],
+    headers: ColumnDefinition[],
+    onDelete?: OnDelete,
+    onEdit?: OnEdit,
 }
 
 export interface RowData {
@@ -12,6 +16,8 @@ export interface RowData {
 export interface RowOptions {
     data: RowData,
     header?: boolean,
+    onEdit?: OnEdit,
+    onDelete?: OnDelete,
 }
 
 export function isTableData(data: any): data is TableData {
@@ -21,3 +27,21 @@ export function isTableData(data: any): data is TableData {
 export function isRowData(data: any): data is RowData {
     return Array.isArray(data) && data.length > 0 && (typeof(data[0]) === 'string');
 }
+
+export enum ColumnType {
+    string = 0,
+    number = 1,
+}
+
+export interface ColumnDefinition {
+    header: string,
+    type: ColumnType,
+}
+
+export type UpdateCallback = (data: RowData) => void;
+
+export type OnEdit = (data: RowData, callback: UpdateCallback) => void;
+
+export type DeleteCallback = (isDeleted: boolean) => void;
+
+export type OnDelete = (data: RowData, callback: DeleteCallback) => void;

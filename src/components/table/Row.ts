@@ -12,14 +12,27 @@ export class Row {
   }
 
   onEdit = (e: MouseEvent) => {
-    console.info(this.options.data.id);
+    this.options.onEdit && this.options.onEdit(this.options.data, this.editCallback);
+  };
+
+  editCallback = (data: RowData) => {
+    console.info(data);
+  };
+
+  onDelete = (e: MouseEvent) => {
+    this.options.onDelete && this.options.onDelete(this.options.data, this.deleteCallback);
+  };
+
+  deleteCallback = (isDeleted: boolean) => {
+    console.info(isDeleted, 'isDeleted');
   };
 
   private addActions() {
     if (this.body) {
       this.body.appendChild(create(Elements.div, {
         content: [
-          create(Elements.button, { className: styles.cell, content: 'Edit', actions: { click: this.onEdit }})
+          create(Elements.button, { className: styles.cell, content: 'Edit', actions: { click: this.onEdit }}),
+          create(Elements.button, { className: styles.cell, content: 'Delete', actions: { click: this.onDelete }})
         ]
       }))
     }
