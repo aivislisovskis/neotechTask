@@ -2,6 +2,7 @@ import { RowData, RowOptions } from './table.types';
 import { create } from '../../helpers/create';
 import { Elements } from '../../helpers/create.types';
 import styles from './table.css';
+import { Button } from '../../elements/button/Button';
 
 export class Row {
   body: HTMLElement | null = null;
@@ -31,8 +32,8 @@ export class Row {
     if (this.body) {
       this.body.appendChild(create(Elements.div, {
         content: [
-          create(Elements.button, { className: styles.cell, content: 'Edit', actions: { click: this.onEdit }}),
-          create(Elements.button, { className: styles.cell, content: 'Delete', actions: { click: this.onDelete }})
+          new Button(this.onEdit, 'Edit').body,
+          new Button(this.onDelete, 'Delete').body,
         ]
       }))
     }

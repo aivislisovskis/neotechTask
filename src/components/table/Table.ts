@@ -3,12 +3,13 @@ import { Elements } from '../../helpers/create.types';
 import { ColumnDefinition, RowData, TableData, TableOptions } from './table.types';
 import styles from './table.css';
 import { Row } from './Row';
+import { Button } from '../../elements/button/Button';
 
 export class Table {
   body: HTMLElement | null = null;
 
   constructor(public options: TableOptions) {
-    this.body = create(Elements.div, {className: styles.body, content: [this.createHeader(options.headers), ...this.prepareInitData()]});
+    this.body = create(Elements.div, {className: styles.body, content: [this.createNew(), this.createHeader(options.headers), ...this.prepareInitData()]});
   }
 
   private createHeader(rowData: ColumnDefinition[]): HTMLElement | null {
@@ -19,6 +20,21 @@ export class Table {
 
     return null;
   }
+
+  private createNew(): HTMLElement | null {
+    return create(Elements.div, {
+      className: styles.addNewRow,
+      content: new Button(this.addNew, 'Add New Row').body,
+    })
+  }
+
+  newCallback = (data: RowData) => {
+    console.info(data, 'NEW');
+  };
+
+  public addNew = () => {
+    this.options?.onNew && this.options.onNew(this.newCallback);
+  };
 
   private prepareInitData(): (HTMLElement | null)[] {
     if (this.options?.data) {

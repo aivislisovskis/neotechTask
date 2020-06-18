@@ -7,7 +7,7 @@ import { ApiDataRow, ApiDataRowToRowData } from './types';
 import { Modular } from './components/modular/Modular';
 import { TableForm } from './components/tableForm/TableForm';
 import { columns } from './dataConfig';
-import { DeleteCallback, RowData, UpdateCallback } from './components/table/table.types';
+import { DeleteCallback, NewCallback, RowData, UpdateCallback } from './components/table/table.types';
 
 class Base {
     body: HTMLElement | null = null;
@@ -38,6 +38,13 @@ class Base {
         console.info(row, 'edit');
     };
 
+    onNew = (callback: NewCallback) => {
+        if (this.modularEdit) {
+            this.modularEdit.applyData();
+        }
+        console.info('new');
+    };
+
     onDelete = (row: RowData, callback: DeleteCallback) => {
         console.info(row, 'delete');
     };
@@ -60,7 +67,7 @@ class Base {
 
         if (this.body && typeof(tableData) !== 'boolean') {
             this.addCreateData();
-            this.table = new Table({ data: ApiDataRowToRowData(tableData), headers: columns, onEdit: this.onEdit, onDelete: this.onDelete });
+            this.table = new Table({ data: ApiDataRowToRowData(tableData), headers: columns, onEdit: this.onEdit, onDelete: this.onDelete, onNew: this.onNew });
 
             if (this.table.body) {
                 this.body.appendChild(this.table.body);

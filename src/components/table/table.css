@@ -36,3 +36,9 @@
 .headerRow .cell {
     padding: 0 10px;
 }
+
+.addNewRow {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-end;
+}

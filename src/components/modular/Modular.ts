@@ -21,6 +21,8 @@ export class Modular {
       this.applyContentManager(contentManager);
     }
     this.setTitle();
+
+    document.addEventListener('keyup', this.onEscape)
   }
 
   public toogle = () => {
@@ -39,9 +41,20 @@ export class Modular {
     this.contentManager.body && this.elements.container?.appendChild(this.contentManager.body);
   }
 
-  public applyData(data: any, id?: number | string) {
-    this.contentManager.applyData(data, id);
+  public applyData(data?: any, id?: number | string) {
+    if (data && id) {
+      this.contentManager.applyData(data, id);
+    } else {
+      this.contentManager.applyNew();
+    }
     this.toogle();
+  }
+
+  public onEscape = (e: KeyboardEvent) => {
+    if (this.isVisible && e.key === 'Escape') {
+      this.isVisible = false;
+      this.elements.overlay && (this.elements.overlay.className = `${styles.hidden} ${styles.overlay}`);
+    }
   }
 
   private createBase() {
@@ -58,7 +71,7 @@ export class Modular {
               }),
               create(Elements.div, {
                 className: styles.close,
-                content: 'X',
+                content: 'x',
                 actions: {
                   click: this.toogle
                 },

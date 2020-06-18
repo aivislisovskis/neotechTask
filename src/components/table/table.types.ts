@@ -6,6 +6,7 @@ export interface TableOptions {
     headers: ColumnDefinition[],
     onDelete?: OnDelete,
     onEdit?: OnEdit,
+    onNew?: OnNew,
 }
 
 export interface RowData {
@@ -37,6 +38,10 @@ export interface ColumnDefinition {
     header: string,
     type: ColumnType,
 }
+
+export type NewCallback = (data: RowData) => void;
+
+export type OnNew = (callback: NewCallback) => void;
 
 export type UpdateCallback = (data: RowData) => void;
 

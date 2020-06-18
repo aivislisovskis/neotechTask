@@ -10,4 +10,5 @@ export abstract class ModularContent{
   protected abstract createBody(): void;
   protected abstract createButtons(): void;
   public abstract applyData(data: any, id?: number | string): void;
+  public abstract applyNew(): void;
 }

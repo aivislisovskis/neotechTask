@@ -17,4 +17,10 @@ export class TableForm extends ModularContent {
   public applyData(data: any, id?: number): void {
     console.info(data, id);
   }
+
+  public applyNew(): void {
+
+    console.info('CREATING NEW');
+
+  }
 }

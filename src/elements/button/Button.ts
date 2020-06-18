@@ -1,7 +1,7 @@
 import { ElementBlueprint, Elements } from '../../helpers/create.types';
 import { create } from '../../helpers/create';
 
-type onClickHandler = (e: Event) => void;
+type onClickHandler = (e: MouseEvent) => void;
 
 export class Button {
   body: HTMLElement | null = null;
