@@ -1,4 +1,5 @@
 import { Row } from './Row';
+import { ColumnType } from '../../elements/input/input.types';
 
 export type TableData = RowData[];
 export interface TableOptions {
@@ -27,11 +28,6 @@ export function isTableData(data: any): data is TableData {
 
 export function isRowData(data: any): data is RowData {
     return Array.isArray(data) && data.length > 0 && (typeof(data[0]) === 'string');
-}
-
-export enum ColumnType {
-    string = 0,
-    number = 1,
 }
 
 export interface ColumnDefinition {

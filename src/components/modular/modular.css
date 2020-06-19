@@ -44,10 +44,13 @@
 }
 
 .container {
- margin: 40px 0;
  padding: 20px;
 }
 
 .buttonGroup {
-
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-end;
 }

@@ -12,12 +12,15 @@ export interface ElementBlueprint {
 }
 
 export type MouseEventHandler = (e: MouseEvent) => void;
+export type KeyboardEventHandler = (e: KeyboardEvent) => void;
 
 export interface ElementActions {
     click?: MouseEventHandler,
+    onChange?: KeyboardEventHandler,
 }
 
 export interface ElementProps {
+    value?: string,
 }
 
 export enum Elements {
@@ -30,6 +33,7 @@ export enum Elements {
     header = 'header',
     footer = 'footer',
     nav = 'nav',
+    label = 'label',
 }
 
 export function isElementBlueprint(content: any): content is ElementBlueprint {

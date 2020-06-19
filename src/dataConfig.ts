@@ -1,4 +1,5 @@
-import { ColumnDefinition, ColumnType } from './components/table/table.types';
+import { ColumnDefinition } from './components/table/table.types';
+import { ColumnType } from './elements/input/input.types';
 
 export const columns: ColumnDefinition[] = [
   {

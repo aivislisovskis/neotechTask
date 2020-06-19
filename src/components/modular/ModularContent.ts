@@ -1,6 +1,14 @@
+import { Input } from '../../elements/input/Input';
+
+type TableElements = {
+  [key: string]: Input
+}
+
 export abstract class ModularContent{
   public body: HTMLElement | null = null;
-  public buttons: HTMLElement[] = [];
+  public buttons: HTMLElement | null = null;
+  public elements: TableElements = {};
+  public id: string | number = '';
 
   constructor() {
     this.createBody();

@@ -37,8 +37,8 @@ export class Modular {
 
   public applyContentManager(content: ModularContent) {
     this.contentManager || (this.contentManager = content);
-    console.info(this.contentManager);
     this.contentManager.body && this.elements.container?.appendChild(this.contentManager.body);
+    this.contentManager.buttons && this.elements.buttons?.appendChild(this.contentManager.buttons);
   }
 
   public applyData(data?: any, id?: number | string) {
