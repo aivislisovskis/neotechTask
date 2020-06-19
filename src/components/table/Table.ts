@@ -46,6 +46,10 @@ export class Table {
     return [];
   }
 
+  public updateItem(row: RowData) {
+    console.info('New Data!');
+  }
+
   private createRow(row: RowData) {
     const rowElement = new Row({data: row, onEdit: this.options.onEdit, onDelete: this.options.onDelete});
     return rowElement.body || null;

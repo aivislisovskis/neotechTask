@@ -1,3 +1,5 @@
+@value size-large, size-medium from "../../styles/media.css";
+
 .overlay {
     width: 100%;
     min-height: 100%;
@@ -9,11 +11,13 @@
 }
 
 .body {
-    width: 80%;
+    min-width: 320px;
+    width: 100%;
+    box-sizing: border-box;
     position: relative;
-    margin: 50px auto 50px auto;
+    margin: 0;
     background-color: rgb(256, 256, 256);
-    border: 1px solid #666666;
+    min-height: 100vh;
 }
 
 .header {
@@ -25,12 +29,13 @@
 .close {
     position: absolute;
     right: 4px;
-    top: 2px;
+    top: 0;
     cursor: pointer;
-    height: 14px;
-    font-size: 12px;
+    height: 26px;
+    font-size: 24px;
     font-weight: bold;
-    line-height: 14px;
+    line-height: 26px;
+    user-select: none;
 }
 
 .title {
@@ -53,4 +58,20 @@
     padding: 20px;
     display: flex;
     justify-content: flex-end;
+}
+
+@media (min-width: size-medium) {
+    .body {
+        margin: 50px auto 50px auto;
+        width: 80%;
+        max-width: 400px;
+        border: 1px solid #666666;
+        min-height: auto;
+    }
+
+    .close {
+        height: 20px;
+        font-size: 18px;
+        line-height: 20px;
+    }
 }

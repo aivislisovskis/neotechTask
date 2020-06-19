@@ -1,6 +1,7 @@
 import { Elements } from '../../helpers/create.types';
 import { create } from '../../helpers/create';
 import { ColumnType } from './input.types';
+import styles from './input.css';
 
 type OnChange = (newContent: string, isEnter: boolean) => boolean;
 
@@ -46,9 +47,9 @@ export class Input {
   }
 
   private create() {
-    this.body = create(Elements.div, { content: [
-      create(Elements.label, { content: this.label }),
-      this.input = create(Elements.input, { props: { value: this.value }, actions: { onChange: this.onChangeHandler } })
+    this.body = create(Elements.div, { className: styles.body, content: [
+      create(Elements.label, { className: styles.label, content: this.label, props: { title: this.label, htmlFor: `form-id-${this.label}`  } }),
+      this.input = create(Elements.input, { className: styles.input, props: { value: this.value, id: `form-id-${this.label}` }, actions: { onChange: this.onChangeHandler } })
       ] });
   }
 }

@@ -44,7 +44,7 @@ export class TableForm extends ModularContent {
   }
 
   public applyData(data: any, id?: number): void {
-     console.info(this.elements);
+    console.info(this.elements);
     this.elements.name.value = data[0];
     this.elements.surname.value = data[1];
     this.elements.age.value = data[2];

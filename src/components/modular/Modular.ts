@@ -75,6 +75,9 @@ export class Modular {
                 actions: {
                   click: this.toogle
                 },
+                props: {
+                  title: 'Close'
+                }
               }),
             ],
         }),

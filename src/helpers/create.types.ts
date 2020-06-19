@@ -21,6 +21,9 @@ export interface ElementActions {
 
 export interface ElementProps {
     value?: string,
+    title?: string,
+    htmlFor?: string,
+    id?: string,
 }
 
 export enum Elements {

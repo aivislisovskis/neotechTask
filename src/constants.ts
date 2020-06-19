@@ -1,4 +1,4 @@
-export const API_ENDPOINT = 'https://crudcrud.com/api/aa634e3369fc4c9488abaf9b708a5185';
+export const API_ENDPOINT = 'https://crudcrud.com/api/ff06c95c77194029b9f8f96ac799e2f9';
 
 export const API_GET_LIST = 'list';
 export const API_ADD_ITEM = 'list';

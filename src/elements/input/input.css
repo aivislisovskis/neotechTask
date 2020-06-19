@@ -1,0 +1,23 @@
+@value size-large, size-medium from "../../styles/media.css";
+
+.body {
+    display: flex;
+    padding: 10px;
+    width: 100%;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.label {
+    margin-bottom: 10px;
+    text-transform: capitalize;
+}
+
+.input {
+    min-width: 100px;
+    max-width: 400px;
+}
+
+@media (min-width: size-medium) {
+
+}

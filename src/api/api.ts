@@ -25,6 +25,25 @@ class Api {
     return false;
   }
 
+  async getItem(id: string): Promise<null | ApiDataRow> {
+    const response = await fetch(`${C.API_ENDPOINT}/${C.API_GET_ITEM}/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .catch((e) => {
+          return null;
+        })
+    ;
+
+    if (response instanceof Response) {
+      return await response.json();
+    }
+
+    return null;
+  }
+
   async addItem(data: ApiDataRow) {
     return await fetch(`${C.API_ENDPOINT}/${C.API_ADD_ITEM}`, {
       method: 'POST',
