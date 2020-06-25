@@ -40,6 +40,7 @@ export class HistoryHandler{
   }
 
   pushState(path: string, title?: string) {
-    console.info(this.history.pushState({}, title || this.title, path));
+    this.history.pushState({}, title || this.title, path);
+    this.parseCurrent(document.location.href);
   }
 }

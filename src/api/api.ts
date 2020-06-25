@@ -54,7 +54,7 @@ class Api {
     })
   }
 
-  async updateItem(data: ApiDataRow, id: number) {
+  async updateItem(data: ApiDataRow, id: string) {
     return await fetch(`${C.API_ENDPOINT}/${C.API_UPDATE_ITEM}/${id}`, {
       method: 'PUT',
       headers: {

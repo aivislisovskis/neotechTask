@@ -25,8 +25,8 @@ class Base {
     this.body = document.getElementById('codeBase');
 
     this.applyStyle();
-    this.createModulars();
     await this.requestTableData();
+    this.createModulars();
 
     this.history = new HistoryHandler([
       {
@@ -49,40 +49,31 @@ class Base {
         const data: ApiDataRow | null = await api.getItem(props[1]);
         if (data && this.table) {
           const formatedData: RowData = ApiDataRowToRowData([data])[0];
-          this.onEdit(formatedData, this.table.updateItem);
+          if (formatedData.id !== null && this.modularEdit) {
+            this.modularEdit.setTitle('Edit');
+            this.modularEdit.applyData(formatedData.data, formatedData.id);            
+          }
         }
     }
   };
 
   onMatchNewRow = () => {
-    this.table && this.onNew(this.table.newCallback);
+    if (this.modularEdit) {
+      this.modularEdit.setTitle('New');
+      this.modularEdit.applyData();
+    }
   };
 
   onClick = (e: Event) => {
     generateList();
   };
 
-  onEdit = (row: RowData, callback: UpdateCallback) => {
+  onEdit = (row: RowData) => {
     this.history?.pushState(`/row/${row.id}`);
-
-    if (this.modularEdit) {
-      this.modularEdit.setTitle('Edit');
-      if (row.id !== null) {
-        this.modularEdit.applyData(row.data, row.id);
-      } else {
-        this.modularEdit.applyData(row.data);
-      }
-    }
   };
 
   onNew = (callback: NewCallback) => {
     this.history?.pushState(`/row`);
-
-    if (this.modularEdit) {
-      this.modularEdit.setTitle('New');
-      this.modularEdit.applyData();
-    }
-    console.info('new');
   };
 
   onDelete = (row: RowData, callback: DeleteCallback) => {
@@ -90,9 +81,9 @@ class Base {
   };
 
   private createModulars() {
-    if (this.body) {
-      this.modularEdit = new Modular(this.body, new TableForm(), 'Edit');
-      this.modularConfirmDelete = new Modular(this.body, new TableForm(), 'Delete?');
+    if (this.body && this.table) {
+      this.modularEdit = new Modular(this.body, new TableForm(this.table), 'Edit');
+      this.modularConfirmDelete = new Modular(this.body, new TableForm(this.table), 'Delete?');
     }
   }
 

@@ -6,18 +6,15 @@ import { Button } from '../../elements/button/Button';
 
 export class Row {
   body: HTMLElement | null = null;
+  cells: HTMLElement[] = [];
 
   constructor(public options: RowOptions) {
-    this.body = create(Elements.div, { className: options.header ? styles.headerRow : styles.row, content: this.createElements(options.data) });
+    this.body = create(Elements.div, { className: options.header ? styles.headerRow : styles.row, content: this.createCells(options.data) });
     !options.header && this.addActions();
   }
 
   onEdit = (e: MouseEvent) => {
-    this.options.onEdit && this.options.onEdit(this.options.data, this.editCallback);
-  };
-
-  editCallback = (data: RowData) => {
-    console.info(data);
+    this.options.onEdit && this.options.onEdit(this.options.data);
   };
 
   onDelete = (e: MouseEvent) => {
@@ -39,9 +36,17 @@ export class Row {
     }
   }
 
-  private createElements(data: RowData): Array<HTMLElement> {
+  public updateCells(data: RowData) {
+    const elements = data.data.forEach((text: string, index: number) => {
+      this.cells[index].innerHTML = text;
+    })
+}
+
+  private createCells(data: RowData): Array<HTMLElement> {
       const elements = data.data.map((text: string): HTMLElement => {
-        return create(Elements.div, { content: text, className: styles.cell })
+        const cell = create(Elements.div, { content: text, className: styles.cell })
+        this.cells.push(cell);
+        return cell;
       })
 
     return elements;

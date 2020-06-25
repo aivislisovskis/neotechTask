@@ -6,10 +6,14 @@ import { Button } from '../../elements/button/Button';
 import { ColumnDefinition } from '../table/table.types';
 import { Input } from '../../elements/input/Input';
 import { columns } from '../../dataConfig';
-
-
+import { api } from '../../api/api';
+import { Table } from '../table/Table';
 
 export class TableForm extends ModularContent {
+  constructor(public table: Table) {
+    super(table);
+  }
+
    protected createBody() {
     this.body = create(Elements.div, {
       className: styles.body,
@@ -31,14 +35,29 @@ export class TableForm extends ModularContent {
       ]})
   }
 
-  public onSave = () => {
-    console.info('SAVE!');
+  public async onSave() {
+    await api.updateItem({
+      name: this.elements.name.value,
+      surname: this.elements.surname.value,
+      age: parseInt(this.elements.age.value),
+      email: this.elements.email.value,
+      company: this.elements.company.value,
+    }, String(this.id));
+
+    this.table.updateItem({ id: this.id, data: [
+      this.elements.name.value,
+      this.elements.surname.value,
+      this.elements.age.value,
+      this.elements.email.value,
+      this.elements.company.value,
+    ]})
   }
 
   protected createButtons() {
     this.buttons = create(Elements.div, {
       content: [
-        new Button(this.onSave, 'Save').body
+        new Button(this.onSave.bind(this), 'Save').body,
+        this.onClose && new Button(this.onClose.bind(this), 'Close').body
       ]
     })
   }

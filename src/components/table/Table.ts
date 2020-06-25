@@ -7,6 +7,7 @@ import { Button } from '../../elements/button/Button';
 
 export class Table {
   body: HTMLElement | null = null;
+  lookup: { [key: string]: Row } = {}
 
   constructor(public options: TableOptions) {
     this.body = create(Elements.div, {className: styles.body, content: [this.createNew(), this.createHeader(options.headers), ...this.prepareInitData()]});
@@ -47,16 +48,21 @@ export class Table {
   }
 
   public updateItem(row: RowData) {
-    console.info('New Data!');
+    if (row.id !== null) {
+      this.lookup[row.id] && this.lookup[row.id].updateCells(row);
+    }
   }
 
   private createRow(row: RowData) {
     const rowElement = new Row({data: row, onEdit: this.options.onEdit, onDelete: this.options.onDelete});
+    if (row.id !== null) {
+      this.lookup[row.id] = rowElement;
+    }
     return rowElement.body || null;
   }
 
   public add(data: TableData) {
-      data.forEach((row: RowData) => {
+      data.forEach((row: RowData, index: number) => {
         const rowElement = this.createRow(row);
         rowElement && this.body && this.body.appendChild(rowElement);
       })

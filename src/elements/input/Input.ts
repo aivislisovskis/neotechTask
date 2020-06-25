@@ -3,14 +3,15 @@ import { create } from '../../helpers/create';
 import { ColumnType } from './input.types';
 import styles from './input.css';
 
-type OnChange = (newContent: string, isEnter: boolean) => boolean;
+type OnKeyUp = (newContent: string) => boolean;
+type OnEnter = () => void;
 
 export class Input {
   body: HTMLElement | null = null;
   currentValue: string;
   input: HTMLElement | null = null;
 
-  constructor(private initialValue: string, public label: string, public type: ColumnType, public onChange?: OnChange) {
+  constructor(private initialValue: string, public label: string, public type: ColumnType, public onKeyUp?: OnKeyUp | null, public onEnter?: OnEnter) {
     this.currentValue = initialValue;
     this.create();
   }
@@ -28,16 +29,23 @@ export class Input {
     return this.currentValue;
   }
 
-  onChangeHandler = (e: KeyboardEvent) => {
-    console.info(e);
-    let isOk = true;
+  onKeyPressHandler = (e: KeyboardEvent) => {
+    if (e.keyCode === 13) {
+      if (this.onEnter) {
+        this.onEnter();
+      }
 
-    if (this.onChange) {
-      isOk = this.onChange('someVal', false);
+      return;
+    }
+    let isOk = true;
+    const target = e.target as HTMLInputElement;
+
+    if (this.onKeyUp) {
+      isOk = this.onKeyUp(target.value);
     }
 
     if (isOk) {
-      this.currentValue = 'someVal';
+      this.currentValue = target.value;
       return;
     }
 
@@ -49,7 +57,7 @@ export class Input {
   private create() {
     this.body = create(Elements.div, { className: styles.body, content: [
       create(Elements.label, { className: styles.label, content: this.label, props: { title: this.label, htmlFor: `form-id-${this.label}`  } }),
-      this.input = create(Elements.input, { className: styles.input, props: { value: this.value, id: `form-id-${this.label}` }, actions: { onChange: this.onChangeHandler } })
+      this.input = create(Elements.input, { className: styles.input, props: { value: this.value, id: `form-id-${this.label}` }, actions: { keyup: this.onKeyPressHandler } })
       ] });
   }
 }

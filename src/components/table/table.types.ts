@@ -41,7 +41,7 @@ export type OnNew = (callback: NewCallback) => void;
 
 export type UpdateCallback = (data: RowData) => void;
 
-export type OnEdit = (data: RowData, callback: UpdateCallback) => void;
+export type OnEdit = (data: RowData) => void;
 
 export type DeleteCallback = (isDeleted: boolean) => void;
 

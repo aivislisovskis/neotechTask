@@ -16,7 +16,7 @@ export type KeyboardEventHandler = (e: KeyboardEvent) => void;
 
 export interface ElementActions {
     click?: MouseEventHandler,
-    onChange?: KeyboardEventHandler,
+    keyup?: KeyboardEventHandler,
 }
 
 export interface ElementProps {
