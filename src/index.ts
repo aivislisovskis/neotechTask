@@ -78,7 +78,7 @@ class Base {
     this.history?.pushState('/row');
   };
 
-  onDelete = (row: RowData, callback: DeleteCallback) => {
+  onDelete = (row: RowData) => {
     this.modularConfirmDelete?.applyData(row, row.id);
   };
 
@@ -120,7 +120,7 @@ class Base {
   }
 
   private async addCreateData() {
-    const createList = new Button(this.onClick, 'Create List');
+    const createList = new Button(this.onClick, 'Add 10 Items');
     createList.body && this.body && this.body.appendChild(createList.body);
   }
 }

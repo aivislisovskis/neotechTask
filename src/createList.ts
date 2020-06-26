@@ -65,7 +65,7 @@ function email(name: string, surname: string): string {
   return `${name}.${surname}.${random}@${randomMail}`;
 }
 
-const itemCount = 3;
+const itemCount = 10;
 
 export async function generateList() {
   for (let a = 0; a < itemCount; a++) {
