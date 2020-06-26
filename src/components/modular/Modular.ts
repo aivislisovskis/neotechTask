@@ -8,7 +8,7 @@ export class Modular {
   elements: ModularElements = {};
   private isVisible: boolean = false;
 
-  constructor(public parent: HTMLElement, private contentManager: ModularContent, private title: string = '') {
+  constructor(public parent: HTMLElement, private contentManager: ModularContent, private title: string = '', private closed?: () => void) {
     this.createBase();
     if (contentManager) {
       this.applyContentManager(contentManager);
@@ -25,6 +25,7 @@ export class Modular {
       this.isVisible = visible;
     }
 
+    !this.isVisible && this.closed && this.closed();
     this.elements.overlay && (this.elements.overlay.className = (!this.isVisible ? styles.overlay : `${styles.show} ${styles.overlay}`));
   };
 

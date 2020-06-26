@@ -26,7 +26,7 @@ export interface ElementProps {
     title?: string,
     htmlFor?: string,
     id?: string,
-    type?: ColumnType,
+    type?: string,
 }
 
 export enum Elements {

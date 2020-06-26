@@ -30,7 +30,7 @@ export class Input {
   }
 
   onKeyPressHandler = (e: KeyboardEvent) => {
-    if (e.keyCode === 13) {
+    if (e.key === 'Enter') {
       if (this.onEnter) {
         this.onEnter();
       }
@@ -57,7 +57,7 @@ export class Input {
   private create() {
     this.body = create(Elements.div, { className: styles.body, content: [
       create(Elements.label, { className: styles.label, content: this.label, props: { title: this.label, htmlFor: `form-id-${this.label}`  } }),
-      this.input = create(Elements.input, { className: styles.input, props: { value: this.value, id: `form-id-${this.label}`, type: this.type }, actions: { keyup: this.onKeyPressHandler } })
+      this.input = create(Elements.input, { className: styles.input, props: { value: this.value, id: `form-id-${this.label}`, type: (this.type === ColumnType.number ? 'number' : 'text') }, actions: { keyup: this.onKeyPressHandler } })
       ] });
   }
 }

@@ -75,16 +75,20 @@ class Base {
   };
 
   onNew = () => {
-    this.history?.pushState(`/row`);
+    this.history?.pushState('/row');
   };
 
   onDelete = (row: RowData, callback: DeleteCallback) => {
     this.modularConfirmDelete?.applyData(row, row.id);
   };
 
+  onEditClose = () => {
+    this.history?.pushState('/');
+  }
+
   private createModulars() {
     if (this.body && this.table) {
-      this.modularEdit = new Modular(this.body, new TableForm({ table: this.table, history: this.history } ), 'Edit');
+      this.modularEdit = new Modular(this.body, new TableForm({ table: this.table, history: this.history } ), 'Edit', this.onEditClose);
       this.modularConfirmDelete = new Modular(this.body, new DeleteForm({ table: this.table }), 'Delete?');
     }
   }

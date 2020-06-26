@@ -1,4 +1,5 @@
 export enum ColumnType {
-  string = 0,
-  number = 1,
+  string = 'string',
+  number = 'number',
+  button = 'button',
 }

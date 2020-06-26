@@ -22,4 +22,8 @@ export const columns: ColumnDefinition[] = [
     header: 'company',
     type: ColumnType.string,
   },
+  {
+    header: 'actions',
+    type: ColumnType.button,
+  }
 ];

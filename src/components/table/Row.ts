@@ -28,6 +28,10 @@ export class Row {
   private addActions() {
     if (this.body) {
       this.body.appendChild(create(Elements.div, {
+        className: [
+          styles.cell,
+          styles.buttonBox
+          ],
         content: [
           new Button(this.onEdit, 'Edit').body,
           new Button(this.onDelete, 'Delete').body,
