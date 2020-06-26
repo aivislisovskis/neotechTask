@@ -9,7 +9,6 @@ import { columns } from '../../dataConfig';
 import { api } from '../../api/api';
 import { Table } from '../table/Table';
 import { HistoryHandler } from '../../helpers/history';
-import { OnClose } from '../modular/Modular.types';
 
 export class TableForm extends ModularContent {
   constructor(public props: { table: Table, history: HistoryHandler | null } ) {

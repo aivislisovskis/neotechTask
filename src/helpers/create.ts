@@ -4,7 +4,6 @@ import {
     ElementOptions,
     isElementBlueprint,
     isElementBlueprintArray,
-    ElementProps,
 } from './create.types';
 
 export const create = (elementTag: Elements, options?: ElementOptions ): HTMLElement => {
@@ -48,7 +47,7 @@ export const create = (elementTag: Elements, options?: ElementOptions ): HTMLEle
         if (options.props) {
             for (let a in options.props) {
                 if (options.props.hasOwnProperty(a)) {
-                    // @ts-ignorenewElement
+                    // @ts-ignore
                     newElement[a] = options.props[a];
                 }
             }
@@ -57,7 +56,7 @@ export const create = (elementTag: Elements, options?: ElementOptions ): HTMLEle
         if (options.actions) {
             for (let a in options.actions) {
                 if (options.actions.hasOwnProperty(a)) {
-                    // @ts-ignorenewElement
+                    // @ts-ignore
                     newElement.addEventListener(a, options.actions[a]);
                 }
             }

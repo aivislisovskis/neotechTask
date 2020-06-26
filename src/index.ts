@@ -7,8 +7,8 @@ import { ApiDataRow, ApiDataRowToRowData } from './types';
 import { Modular } from './components/modular/Modular';
 import { TableForm } from './components/tableForm/TableForm';
 import { columns } from './dataConfig';
-import { DeleteCallback, NewCallback, RowData } from './components/table/table.types';
-import { HistoryHandler, Action } from './helpers/history';
+import { RowData } from './components/table/table.types';
+import { HistoryHandler } from './helpers/history';
 import { DeleteForm } from './components/deleteForm/DeleteForm';
 
 class Base {

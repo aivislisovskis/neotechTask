@@ -1,5 +1,3 @@
-import { ColumnType } from '../elements/input/input.types';
-
 export interface ElementOptions {
     className?: string | Array<string>,
     content?: string | ElementBlueprint | Array<(ElementBlueprint | HTMLElement | null)> | HTMLElement | null,
