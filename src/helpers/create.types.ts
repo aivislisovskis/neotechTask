@@ -1,3 +1,5 @@
+import { ColumnType } from '../elements/input/input.types';
+
 export interface ElementOptions {
     className?: string | Array<string>,
     content?: string | ElementBlueprint | Array<(ElementBlueprint | HTMLElement | null)> | HTMLElement | null,
@@ -24,6 +26,7 @@ export interface ElementProps {
     title?: string,
     htmlFor?: string,
     id?: string,
+    type?: ColumnType,
 }
 
 export enum Elements {
@@ -40,7 +43,7 @@ export enum Elements {
 }
 
 export function isElementBlueprint(content: any): content is ElementBlueprint {
-    return (content as ElementBlueprint).elementTag !== undefined;
+    return content && (content as ElementBlueprint).elementTag !== undefined;
 }
 
 export function isElementBlueprintArray(content: any): content is Array<(ElementBlueprint | HTMLElement)> {

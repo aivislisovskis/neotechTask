@@ -9,17 +9,22 @@ const requestHandler = (request, response) => {
   switch (request.url) {
     case '/js/main.js':
       returnFile = './assets/main.js';
+      resType = 'application/javascript';
       break;
     case '/js/main.js.map':
       returnFile = './assets/main.js.map';
+      resType = 'application/octet-stream';
       break;
     case '/css/main.css':
       returnFile = './assets/main.css';
+      resType = 'text/css';
       break;
     default:
       returnFile = './index.html';
+      resType = 'text/html';
   }
 
+  response.setHeader('Content-Type', resType);
   response.end(fs.readFileSync(returnFile));
 }
 

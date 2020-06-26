@@ -12,7 +12,6 @@ export class Button {
 
   private create() {
     this.body = create(Elements.button, { content: this.content });
-    console.info(this.onClick, this.content);
     this.body.addEventListener('click', this.onClick);
   }
 }

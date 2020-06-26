@@ -10,7 +10,9 @@ export class HistoryHandler{
   title: string = '';
 
   constructor(private actions: Action[] ) {
-    this.parseCurrent(document.location.href);
+    window.onpopstate = () => {
+      this.parseCurrent(document.location.href);
+    }
   }
 
   parseCurrent(path: string) {

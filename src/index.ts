@@ -7,8 +7,9 @@ import { ApiDataRow, ApiDataRowToRowData } from './types';
 import { Modular } from './components/modular/Modular';
 import { TableForm } from './components/tableForm/TableForm';
 import { columns } from './dataConfig';
-import { DeleteCallback, NewCallback, RowData, UpdateCallback } from './components/table/table.types';
+import { DeleteCallback, NewCallback, RowData } from './components/table/table.types';
 import { HistoryHandler, Action } from './helpers/history';
+import { DeleteForm } from './components/deleteForm/DeleteForm';
 
 class Base {
   body: HTMLElement | null = null;
@@ -24,10 +25,6 @@ class Base {
   async init () {
     this.body = document.getElementById('codeBase');
 
-    this.applyStyle();
-    await this.requestTableData();
-    this.createModulars();
-
     this.history = new HistoryHandler([
       {
         match: 'http:\/\/localhost:3000\/row\/(\\w+)',
@@ -42,6 +39,11 @@ class Base {
         onMatch: this.onMatchNewRow,
       },
     ]);
+
+    this.applyStyle();
+    await this.requestTableData();
+    this.createModulars();
+    this.history.parseCurrent(document.location.href);
   }
 
   onMatchRow = async (props: string[] | null) => {
@@ -72,18 +74,18 @@ class Base {
     this.history?.pushState(`/row/${row.id}`);
   };
 
-  onNew = (callback: NewCallback) => {
+  onNew = () => {
     this.history?.pushState(`/row`);
   };
 
   onDelete = (row: RowData, callback: DeleteCallback) => {
-    console.info(row, 'delete');
+    this.modularConfirmDelete?.applyData(row, row.id);
   };
 
   private createModulars() {
     if (this.body && this.table) {
-      this.modularEdit = new Modular(this.body, new TableForm(this.table), 'Edit');
-      this.modularConfirmDelete = new Modular(this.body, new TableForm(this.table), 'Delete?');
+      this.modularEdit = new Modular(this.body, new TableForm({ table: this.table, history: this.history } ), 'Edit');
+      this.modularConfirmDelete = new Modular(this.body, new DeleteForm({ table: this.table }), 'Delete?');
     }
   }
 
@@ -94,12 +96,13 @@ class Base {
   }
 
   private async requestTableData() {
-    const tableData: ApiDataRow[] | boolean = await api.getList();
+    const tableData: ApiDataRow[] = await api.getList();
 
-    if (this.body && typeof (tableData) !== 'boolean') {
+    if (this.body) {
       this.addCreateData();
+
       this.table = new Table({
-        data: ApiDataRowToRowData(tableData),
+        data: tableData.length > 0 ? ApiDataRowToRowData(tableData) : [],
         headers: columns,
         onEdit: this.onEdit,
         onDelete: this.onDelete,

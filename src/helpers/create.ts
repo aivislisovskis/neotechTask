@@ -38,7 +38,9 @@ export const create = (elementTag: Elements, options?: ElementOptions ): HTMLEle
             if (isElementBlueprintArray(options.content)) {
                 options.content.forEach((element: ElementBlueprint | HTMLElement) => {
                     const subElement = isElementBlueprint(element) ? create(element.elementTag, element.options) : element;
-                    newElement.appendChild(subElement);
+                    if (subElement) {
+                        newElement.appendChild(subElement);
+                    }
                 })
             }
         }

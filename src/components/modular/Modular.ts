@@ -2,14 +2,7 @@ import { create } from '../../helpers/create';
 import { Elements } from '../../helpers/create.types';
 import styles from './modular.css';
 import { ModularContent } from './ModularContent';
-
-interface ModularElements {
-  body?: HTMLElement,
-  overlay?: HTMLElement,
-  title?: HTMLElement,
-  container?: HTMLElement,
-  buttons?: HTMLElement,
-}
+import { ModularElements } from './Modular.types';
 
 export class Modular {
   elements: ModularElements = {};
@@ -25,9 +18,14 @@ export class Modular {
     document.addEventListener('keyup', this.onEscape)
   }
 
-  public toogle = () => {
-    this.isVisible = !this.isVisible;
-    this.elements.overlay && (this.elements.overlay.className = this.isVisible ? styles.overlay : `${styles.hidden} ${styles.overlay}`);
+  public toogle = (_: MouseEvent | null, visible?: boolean) => {
+    if (typeof visible !== 'boolean') {
+      this.isVisible = !this.isVisible;
+    } else {
+      this.isVisible = visible;
+    }
+
+    this.elements.overlay && (this.elements.overlay.className = (!this.isVisible ? styles.overlay : `${styles.show} ${styles.overlay}`));
   };
 
   public setTitle = (title?: string) => {
@@ -42,27 +40,29 @@ export class Modular {
     this.contentManager.setClose(this.toogle);
   }
 
-  public applyData(data?: any, id?: number | string) {
+  public applyData(data?: any, id?: number | string | null) {
     if (data && id) {
       this.contentManager.applyData(data, id);
     } else {
       this.contentManager.applyNew();
     }
-    this.toogle();
+    this.toogle(null, true);
   }
 
   public onEscape = (e: KeyboardEvent) => {
     if (this.isVisible && e.key === 'Escape') {
       this.isVisible = false;
-      this.elements.overlay && (this.elements.overlay.className = `${styles.hidden} ${styles.overlay}`);
+      this.elements.overlay && (this.elements.overlay.className = styles.overlay);
     }
   }
 
   private createBase() {
     this.elements.overlay = this.parent.appendChild(create(Elements.div, {
-      className: [styles.overlay, styles.hidden],
+      className: styles.overlay,
+      actions: { click: this.toogle },
       content: this.elements.body = create(Elements.div, {
         className: styles.body,
+        actions: { click: (e: MouseEvent) => e.stopPropagation()},
         content: [
           create(Elements.div, {
             className: styles.header,

@@ -4,10 +4,13 @@
     width: 100%;
     min-height: 100%;
     position: absolute;
+    opacity: 0;
     background-color: rgba(256, 256, 256, 0.7);
     overflow: auto;
     top: 0;
     left: 0;
+    transition: transform 0.25s ease-in, opacity 0.25s ease-in;
+    transform: translateY(-100%);
 }
 
 .body {
@@ -44,8 +47,10 @@
     height: 26px;
 }
 
-.hidden {
-    display: none;
+.show {
+    display: block;
+    transform: translateY(0);
+    opacity: 1;
 }
 
 .container {

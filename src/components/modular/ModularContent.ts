@@ -1,16 +1,11 @@
-import { Input } from '../../elements/input/Input';
-
-type OnClose = () => void;
-
-type TableElements = {
-  [key: string]: Input
-}
+import { GuiElements, OnClose, TableElements } from './Modular.types';
 
 export abstract class ModularContent{
   public body: HTMLElement | null = null;
   public buttons: HTMLElement | null = null;
   public elements: TableElements = {};
-  public id: string | number = '';
+  public guiElements: GuiElements = {};
+  public id: string | number | null = null;
   protected onClose: OnClose | null = null;
 
   constructor(props: any) {
@@ -26,4 +21,5 @@ export abstract class ModularContent{
   protected abstract createButtons(): void;
   public abstract applyData(data: any, id?: number | string): void;
   public abstract applyNew(): void;
+  public abstract onTriggerClose(): void;
 }

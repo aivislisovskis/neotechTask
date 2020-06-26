@@ -1,4 +1,3 @@
-import { Row } from './Row';
 import { ColumnType } from '../../elements/input/input.types';
 
 export type TableData = RowData[];
@@ -22,14 +21,6 @@ export interface RowOptions {
     onDelete?: OnDelete,
 }
 
-export function isTableData(data: any): data is TableData {
-    return Array.isArray(data) && data.length > 0 && isRowData(data[0]);
-}
-
-export function isRowData(data: any): data is RowData {
-    return Array.isArray(data) && data.length > 0 && (typeof(data[0]) === 'string');
-}
-
 export interface ColumnDefinition {
     header: string,
     type: ColumnType,
@@ -38,8 +29,6 @@ export interface ColumnDefinition {
 export type NewCallback = (data: RowData) => void;
 
 export type OnNew = (callback: NewCallback) => void;
-
-export type UpdateCallback = (data: RowData) => void;
 
 export type OnEdit = (data: RowData) => void;
 

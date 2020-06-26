@@ -7,7 +7,7 @@ import { Button } from '../../elements/button/Button';
 
 export class Table {
   body: HTMLElement | null = null;
-  lookup: { [key: string]: Row } = {}
+  lookup: { [key: string]: Row } = {};
 
   constructor(public options: TableOptions) {
     this.body = create(Elements.div, {className: styles.body, content: [this.createNew(), this.createHeader(options.headers), ...this.prepareInitData()]});
@@ -29,8 +29,14 @@ export class Table {
     })
   }
 
-  newCallback = (data: RowData) => {
-    console.info(data, 'NEW');
+  public newCallback = (data: RowData) => {
+    const newRow = this.createRow(data);
+    newRow && this.body?.appendChild(newRow);
+  };
+
+  public deleteCallback = (id: number | string) => {
+    this.lookup[id]?.body?.remove();
+    delete this.lookup[id];
   };
 
   public addNew = () => {

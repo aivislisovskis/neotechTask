@@ -6,7 +6,7 @@ class Api {
 
   }
 
-  async getList(): Promise<boolean | ApiDataRow[]> {
+  async getList(): Promise<ApiDataRow[]> {
     const response = await fetch(`${C.API_ENDPOINT}/${C.API_GET_LIST}`, {
       method: 'GET',
       headers: {
@@ -14,15 +14,15 @@ class Api {
       }
     })
       .catch((e) => {
-        return false;
+        return [];
       })
     ;
 
-    if (response instanceof Response) {
+    if (response instanceof Response && response.status === 200) {
       return await response.json();
     }
 
-    return false;
+    return [];
   }
 
   async getItem(id: string): Promise<null | ApiDataRow> {
@@ -37,40 +37,46 @@ class Api {
         })
     ;
 
-    if (response instanceof Response) {
+    if (response instanceof Response && response.status === 200) {
       return await response.json();
     }
 
     return null;
   }
 
-  async addItem(data: ApiDataRow) {
-    return await fetch(`${C.API_ENDPOINT}/${C.API_ADD_ITEM}`, {
+  async addItem(data: ApiDataRow): Promise<null | ApiDataRow> {
+    const response = await fetch(`${C.API_ENDPOINT}/${C.API_ADD_ITEM}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
     })
+
+    return response.status === 200 ? await response.json() : null;
   }
 
   async updateItem(data: ApiDataRow, id: string) {
-    return await fetch(`${C.API_ENDPOINT}/${C.API_UPDATE_ITEM}/${id}`, {
+    const response = await fetch(`${C.API_ENDPOINT}/${C.API_UPDATE_ITEM}/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
-    })
+    });
+
+    return response.status === 200 ? await response.json() : null;
   }
 
-  async deleteItem(id: number) {
-    return await fetch(`${C.API_ENDPOINT}/${C.API_REMOVE_ITEM}/${id}`, {
-      method: 'POST',
+  async deleteItem(id: number | string): Promise<boolean> {
+    const response: Response = await fetch(`${C.API_ENDPOINT}/${C.API_REMOVE_ITEM}/${id}`, {
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       }
-    })
+    });
+
+    return response.status === 200;
   }
 }
 
