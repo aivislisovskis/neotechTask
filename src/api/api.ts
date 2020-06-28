@@ -52,8 +52,11 @@ class Api {
       },
       body: JSON.stringify(data),
     })
+      .catch((e) => {
+        return null;
+      })
 
-    return response.status === 200 ? await response.json() : null;
+    return response?.status === 200 ? await response.json() : null;
   }
 
   async updateItem(data: ApiDataRow, id: string) {
@@ -63,20 +66,26 @@ class Api {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
-    });
+    })
+      .catch((e): null => {
+        return null;
+      });
 
-    return response.status === 200 ? await response.json() : null;
+    return response?.status === 200 ? await response.json() : null;
   }
 
   async deleteItem(id: number | string): Promise<boolean> {
-    const response: Response = await fetch(`${C.API_ENDPOINT}/${C.API_REMOVE_ITEM}/${id}`, {
+    const response: Response | null = await fetch(`${C.API_ENDPOINT}/${C.API_REMOVE_ITEM}/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       }
-    });
+    })
+      .catch((e): null => {
+        return null;
+      });
 
-    return response.status === 200;
+    return response?.status === 200;
   }
 }
 

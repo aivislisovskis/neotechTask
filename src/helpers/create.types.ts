@@ -8,7 +8,6 @@ export interface ElementOptions {
 export interface ElementBlueprint {
     elementTag: Elements,
     options?: ElementOptions,
-    props?: ElementProps,
 }
 
 export type MouseEventHandler = (e: MouseEvent) => void;

@@ -4,5 +4,10 @@ body {
     font-family: Arial, SansSerif;
 }
 
-.someClass {
+.baseContent {
+    height: 100vh;
+}
+
+.baseHide {
+    overflow: hidden;
 }

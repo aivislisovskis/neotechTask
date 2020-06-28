@@ -27,15 +27,15 @@ class Base {
 
     this.history = new HistoryHandler([
       {
-        match: 'http:\/\/localhost:3000\/row\/(\\w+)',
+        match: 'http:\/\/localhost:3000\/row\/(\\w+)$',
         onMatch: this.onMatchRow,
       },
       {
-        match: 'http:\/\/localhost:3000\/row\/',
+        match: 'http:\/\/localhost:3000\/row\/$',
         onMatch: this.onMatchNewRow,
       },
       {
-        match: 'http:\/\/localhost:3000\/row',
+        match: 'http:\/\/localhost:3000\/row$',
         onMatch: this.onMatchNewRow,
       },
     ]);

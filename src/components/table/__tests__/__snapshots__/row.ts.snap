@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table > Row *Snapshot 1`] = `
+<div>
+  <div>
+    Janis
+  </div>
+  <div>
+    Berzins
+  </div>
+  <div>
+    10
+  </div>
+  <div>
+    mail@mail.ll
+  </div>
+  <div>
+    Some company
+  </div>
+  <div
+    class=""
+  >
+    <button>
+      Edit
+    </button>
+    <button>
+      Delete
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Table > Row Update cells 1`] = `
+<div>
+  <div>
+    Juris
+  </div>
+  <div>
+    Kalnins
+  </div>
+  <div>
+    100
+  </div>
+  <div>
+    some@some.ml
+  </div>
+  <div>
+    Other company
+  </div>
+  <div
+    class=""
+  >
+    <button>
+      Edit
+    </button>
+    <button>
+      Delete
+    </button>
+  </div>
+</div>
+`;

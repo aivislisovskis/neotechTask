@@ -3,7 +3,7 @@
 .overlay {
     width: 100%;
     min-height: 100%;
-    position: absolute;
+    position: fixed;
     opacity: 0;
     background-color: rgba(256, 256, 256, 0.7);
     overflow: auto;
@@ -11,6 +11,7 @@
     left: 0;
     transition: transform 0.25s ease-in, opacity 0.25s ease-in;
     transform: translateY(-100%);
+    max-height: 100vh;
 }
 
 .body {

@@ -18,11 +18,7 @@ export class Row {
   };
 
   onDelete = (e: MouseEvent) => {
-    this.options.onDelete && this.options.onDelete(this.options.data, this.deleteCallback);
-  };
-
-  deleteCallback = (isDeleted: boolean) => {
-    console.info(isDeleted, 'isDeleted');
+    this.options.onDelete && this.options.onDelete(this.options.data);
   };
 
   private addActions() {
@@ -41,17 +37,17 @@ export class Row {
   }
 
   public updateCells(data: RowData) {
-    const elements = data.data.forEach((text: string, index: number) => {
+    data.data.forEach((text: string, index: number) => {
       this.cells[index].innerHTML = text;
-    })
+    });
 }
 
   private createCells(data: RowData): Array<HTMLElement> {
       const elements = data.data.map((text: string): HTMLElement => {
-        const cell = create(Elements.div, { content: text, className: styles.cell })
+        const cell = create(Elements.div, { content: text, className: styles.cell });
         this.cells.push(cell);
         return cell;
-      })
+      });
 
     return elements;
   }
